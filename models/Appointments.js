@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
     
 const Appointment = new Schema({
+  receiptnum:{type:String, required: true},
   hospitalId: {type: mongoose.Schema.Types.ObjectId, ref: 'Hospital', required: true },
   doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

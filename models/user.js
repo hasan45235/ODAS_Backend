@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema }  = mongoose;
 
 const User = new Schema({
+  receiptnum:{type:String, required: true},
   name: {type:String, required: true },
   email: { type: String , required: true, unique: true },
   password: { type: String, required: true },
@@ -12,7 +13,7 @@ const User = new Schema({
   role: { type: String, enum: ['patient', 'admin', 'doctor'], default: 'patient' },
   speciality: { type: String }, 
   experience: { type: String },
-  fee: { type: Number },
+  fee: { type: String },
   qualification: { type: String },
   bio: { type: String },
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },

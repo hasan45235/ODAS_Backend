@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/Hospital');
+const Hospital = require('../models/AvailableDoctors');
 const fetchuser = require('../fetchUser');
 const User = require('../models/User');
 const Appointments = require('../models/Appointments');
 
 
-router.get('/fetchappointments', fetchuser, async (req, res) => {
+router.get('/', fetchuser, async (req, res) => {
     try {
         const userId = req.user.id;
         const userData = await User.findById(userId);
-        if(userData.role !== 'admin'){
-            return res.status(401).send("Access denied");
-        }
         const appointments = await Appointments.find()
         res.json(appointments);
     } catch (error) {

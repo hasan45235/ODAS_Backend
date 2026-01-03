@@ -4,7 +4,7 @@ const app = express();
 const connectDB = require('./db');
 const AuthRoutes = require('./routes/auth');
 const appointmentsRoutes = require('./routes/appointments');
-const hospitalRoutes = require('./routes/hospitalschedule')
+const hospitalRoutes = require('./routes/availableDoctors')
 require('dotenv').config();
 
 app.use(express.json());
@@ -13,7 +13,7 @@ app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 app.use('/auth', AuthRoutes);
-app.use('/hospital', hospitalRoutes);
+app.use('/availability', hospitalRoutes);
 app.use('/appointments', appointmentsRoutes);
 
 app.get('/', (req, res) => {

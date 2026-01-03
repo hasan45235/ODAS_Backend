@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/Hospital');
+const Hospital = require('../models/AvailableDoctors');
 const User = require('../models/User');
 const fetchuser = require('../fetchUser');
 
@@ -29,11 +29,14 @@ router.post("/",fetchuser, async (req,res) => {
     }
 })
 
-router.get("/:id",fetchuser, async (req,res) => {
+router.get("/doctorAvailability",fetchuser, async (req,res) => {
     try {
-        const schedules = await Hospital.find({doctorId: req.params.id});
+        const schedules = await Hospital.find({doctorId: req.user.id});
+        if(!req.user.id){
+            return res.status(400).json({message: "Doctor ID is required"});
+        }
         if(schedules.length === 0){
-            return res.status(404).json({message: "Schedule not found"});
+            return res.json([]);
         }
         res.json(schedules);
     } catch (error) {

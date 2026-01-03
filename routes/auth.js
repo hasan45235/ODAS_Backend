@@ -103,10 +103,13 @@ router.get('/getAllUsers', async (req, res) => {
   }
 });
 
-router.post('/getUser', fetchuser, async (req, res) => {
+router.get('/getUser', fetchuser, async (req, res) => {
     try {
         const userid = req.user.id;
         const user = await User.findById(userid);
+        if(!user){
+            return res.status(404).json({message: "User not found"});
+        }
         res.json(user);
     } catch (error) {
         console.error(error.message);

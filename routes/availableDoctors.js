@@ -4,6 +4,9 @@ const Hospital = require('../models/AvailableDoctors');
 const User = require('../models/User');
 const fetchuser = require('../fetchUser');
 
+
+// Fetching All Schedules
+
 router.get("/",fetchuser, async (req,res) => { 
     try {
         const hospitals = await Hospital.find();
@@ -13,6 +16,8 @@ router.get("/",fetchuser, async (req,res) => {
         res.status(500).json({message: error.message});
     }
 })
+
+// Adding a Schedule
 
 router.post("/",fetchuser, async (req,res) => { 
     
@@ -29,6 +34,8 @@ router.post("/",fetchuser, async (req,res) => {
     }
 })
 
+// Fetching Specific Doctor Schedules
+
 router.get("/doctorAvailability",fetchuser, async (req,res) => {
     try {
         const schedules = await Hospital.find({doctorId: req.user.id});
@@ -44,6 +51,8 @@ router.get("/doctorAvailability",fetchuser, async (req,res) => {
     }
 })
 
+// Updating a Schedule
+
 router.put("/:id",fetchuser, async (req,res) => {
     try {
         const schedule = await Hospital.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -55,4 +64,5 @@ router.put("/:id",fetchuser, async (req,res) => {
         res.status(500).json({message: error.message});
     }
 })
+
 module.exports = router;

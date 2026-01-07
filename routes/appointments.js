@@ -5,11 +5,14 @@ const fetchuser = require('../fetchUser');
 const User = require('../models/User');
 const Appointments = require('../models/Appointments');
 
+// Fetching All Appointments
 
 router.get('/', fetchuser, async (req, res) => {
     try {
         const userId = req.user.id;
-        const userData = await User.findById(userId);
+        if(!userId){
+            return res.status(404).send("User Not Found")
+        }
         const appointments = await Appointments.find()
         res.json(appointments);
     } catch (error) {
@@ -18,7 +21,9 @@ router.get('/', fetchuser, async (req, res) => {
 
 })
 
-router.get('/fetchDocSpecificAppointments',fetchuser, async (req, res)=>{
+// Fetching Specific Doctor Appointments
+
+router.get('/DocAppointments',fetchuser, async (req, res)=>{
     try {
         const userId = req.user.id;
         const userData = await User.findById(userId);
@@ -32,7 +37,9 @@ router.get('/fetchDocSpecificAppointments',fetchuser, async (req, res)=>{
     }
 })
 
-router.get('/fetchPatSpecApp',fetchuser, async (req, res)=>{
+// Fetching Specific Patient Appointments
+
+router.get('/PatAppointments',fetchuser, async (req, res)=>{
     try {
         const userId = req.user.id;
         const userData = await User.findById(userId);
@@ -45,6 +52,9 @@ router.get('/fetchPatSpecApp',fetchuser, async (req, res)=>{
         res.status(500).send({message: error.message});
     }
 })
+
+// Adding New Appointment
+
 router.post('/',fetchuser, async (req, res) => {
     try {
         const user = req.user.id;
@@ -62,6 +72,8 @@ router.post('/',fetchuser, async (req, res) => {
         res.status(500).send({message: error.message});
     }
 })
+
+// Update Appointment
 
 router.put('/:id',fetchuser,async(req, res)=>{
     try {

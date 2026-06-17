@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/AvailableDoctors');
-const User = require('../models/User');
+const Hospital = require('../models/hospital');
+const User = require('../models/user');
 const fetchuser = require('../fetchUser');
 
 

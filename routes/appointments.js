@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/AvailableDoctors');
+const Hospital = require('../models/hospital');
 const fetchuser = require('../fetchUser');
-const User = require('../models/User');
-const Appointments = require('../models/Appointments');
+const User = require('../models/user');
+const Appointments = require('../models/appointment');
 
 // Fetching All Appointments
 

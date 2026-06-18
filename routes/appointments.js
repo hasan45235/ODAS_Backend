@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/hospital');
+const Hospital = require('../models/schedule');
 const fetchuser = require('../fetchUser');
 const User = require('../models/user');
 const Appointments = require('../models/appointment');

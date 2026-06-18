@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Hospital = require('../models/hospital');
+const Schedule = require('../models/schedule');
 const User = require('../models/user');
 const fetchuser = require('../fetchUser');
 
@@ -9,8 +9,8 @@ const fetchuser = require('../fetchUser');
 
 router.get("/",fetchuser, async (req,res) => { 
     try {
-        const hospitals = await Hospital.find();
-        res.json(hospitals);
+        const schedules = await Schedule.find();
+        res.json(schedules);
         
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -26,9 +26,9 @@ router.post("/",fetchuser, async (req,res) => {
         if(!user){
             return  res.status(400).json({message: "Doctor not found"});
         }
-        const hospital = new Hospital(req.body);
-        await hospital.save();
-        res.json(hospital);
+        const schedule = new Schedule(req.body);
+        await schedule.save();
+        res.json(schedule);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -38,7 +38,7 @@ router.post("/",fetchuser, async (req,res) => {
 
 router.get("/doctorAvailability",fetchuser, async (req,res) => {
     try {
-        const schedules = await Hospital.find({doctorId: req.user.id});
+        const schedules = await Schedule.find({doctorId: req.user.id});
         if(!req.user.id){
             return res.status(400).json({message: "Doctor ID is required"});
         }
@@ -55,7 +55,7 @@ router.get("/doctorAvailability",fetchuser, async (req,res) => {
 
 router.put("/:id",fetchuser, async (req,res) => {
     try {
-        const schedule = await Hospital.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const schedule = await Schedule.findByIdAndUpdate(req.params.id, req.body, {new: true});
         if(!schedule){
             return res.status(404).json({message: "Schedule not found"});
         }

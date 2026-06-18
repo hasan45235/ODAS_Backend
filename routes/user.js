@@ -111,4 +111,18 @@ router.get("/getUser", fetchuser, async (req, res) => {
   }
 });
 
+router.put("/updateUser", fetchuser, async (req, res) => {
+  try {
+    const userid = req.user.id;
+    const user = await User.findByIdAndUpdate(userid, req.body, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

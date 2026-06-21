@@ -17,6 +17,7 @@ const User = new Schema({
   qualification: { type: String },
   bio: { type: String },
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },
+  reason:{ type: String },
   date: { type: Date, default: Date.now },
 },{ timestamps: true });
 

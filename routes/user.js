@@ -82,7 +82,7 @@ router.post("/loginUser", async (req, res) => {
     };
     const authToken = jwt.sign(data, process.env.JWT_SECRET);
 
-    res.json({ authToken, role: existingUser.role });
+    res.json({ authToken, role: existingUser.role, user: existingUser });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
